@@ -8,7 +8,9 @@ class App extends Component {
       secondField: "Oi again",
       checked: false,
       value: "2",
-      valueTextArea: "Default text gain"
+      valueTextArea: "Default text gain",
+      checkedOther: false,
+      showContent: false
     };
   }
 
@@ -50,6 +52,21 @@ class App extends Component {
   handleChangeForm = e => {
     console.log("name", e.target.name);
     console.log("value", e.target.value);
+  };
+
+  handleChangeCheckBox = () => {
+    this.setState(
+      {
+        ...this.state,
+        checkedOther: !this.state.checkedOther
+      },
+      () => {
+        this.setState({
+          ...this.state,
+          showContent: this.state.checkedOther
+        });
+      }
+    );
   };
 
   render() {
@@ -101,6 +118,18 @@ class App extends Component {
           <hr />
           <button type="submit">Enviar</button>
         </form>
+        <hr />
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={this.state.checkedOther}
+              onChange={this.handleChangeCheckBox}
+            />
+            Mostrar Conteúdo
+          </label>
+          {this.state.showContent && <div>Olha eu aqui</div>}
+        </div>
       </div>
     );
   }
